@@ -440,7 +440,14 @@ function sortPresidentsByBirthYear(presidentsArr) {
 }
 
 // Bonus: Iteration 5 | Age at Inauguration - `map()`
-function getAgeAtInauguration(presidentsArr) {}
+function getAgeAtInauguration(presidentsArr) {
+	return presidentsArr.map(president => {
+		return {
+			...president,
+			ageAtInauguration: president.tookOffice - president.birthYear,
+		};
+	});
+}
 
 // Bonus: Iteration 6 | Presidents Born After - `filter()`
 function getPresidentsBornAfter(presidentsArr, year) {}
