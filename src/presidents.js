@@ -427,11 +427,11 @@ function getDemocraticPresidents(presidentsArr) {
 
 // Iteration 3 | Count Years in Office - reduce()
 function countYearsInOffice(presidentsArr) {
-	return presidentsArr.reduce((totalYears, president) => {
-		return (totalYears += president.leftOffice
-			? president.leftOffice - president.tookOffice
-			: 0);
-	}, 0);
+	return presidentsArr.reduce(
+		(totalYears, { leftOffice: left, tookOffice: took }) =>
+			totalYears + (left ? left - took : 0),
+		0
+	);
 }
 
 // Iteration 4 | Sort Presidents by Birth Year - `sort()`
@@ -441,12 +441,10 @@ function sortPresidentsByBirthYear(presidentsArr) {
 
 // Bonus: Iteration 5 | Age at Inauguration - `map()`
 function getAgeAtInauguration(presidentsArr) {
-	return presidentsArr.map(president => {
-		return {
-			...president,
-			ageAtInauguration: president.tookOffice - president.birthYear,
-		};
-	});
+	return presidentsArr.map(president => ({
+		...president,
+		ageAtInauguration: president.tookOffice - president.birthYear,
+	}));
 }
 
 // Bonus: Iteration 6 | Presidents Born After - `filter()`
@@ -457,7 +455,7 @@ function getPresidentsBornAfter(presidentsArr, year) {
 // Bonus: Iteration 7 | Count Republican Presidents
 function countRepublicanPresidents(presidentsArr) {
 	return presidentsArr.reduce(
-		(total, president) => (total += president.party === 'Republican'),
+		(total, { party }) => total + (party === 'Republican'),
 		0
 	);
 }
